@@ -10,17 +10,15 @@ const rl = readline.createInterface({
 });
 
 // Prompt user for YouTube video title
-// rl.question("jawaban: ", (title) => {
+// rl.question("jawaban: \n", generateMeta);
+rl.question("jawaban: \n", generateImage);
+
+//with close
+
+// rl.question("jawaban: ", (desc) => {
 //   // Generate meta description using OpenAI
-//   generateMeta(title);
+//   generateImage(desc);
 
 //   // Close the readline interface
 //   rl.close();
 // });
-rl.question("jawaban: ", (desc) => {
-  // Generate meta description using OpenAI
-  generateImage(desc);
-
-  // Close the readline interface
-  rl.close();
-});

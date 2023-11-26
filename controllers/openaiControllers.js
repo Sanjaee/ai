@@ -7,13 +7,26 @@ const generateMeta = async (title) => {
     messages: [
       {
         role: "user",
-        content: `isi ${title}`,
+        content: `come up with a description for youtube called ${title}`,
       },
     ],
     max_tokens: 100,
   });
 
-  console.log(description.choices[0]);
+  console.log(description.choices[0].message);
+
+  const tags = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "user",
+        content: `come up with 10 keywords for a youtube video called ${title}`,
+      },
+    ],
+    max_tokens: 100,
+  });
+
+  console.log(tags.choices[0].message);
 };
 
 const generateImage = async (desc) => {
