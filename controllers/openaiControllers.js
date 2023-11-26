@@ -1,41 +1,46 @@
 // openaiController.js
 const openai = require("../config/openaiConfig");
 
-const generateMeta = async (title) => {
+const generateMeta = async (req, res) => {
+  const { title } = req.body;
+
   const description = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
       {
         role: "user",
-        content: `come up with a description for youtube called ${title}`,
+        content: `isi ${title}`,
       },
     ],
     max_tokens: 100,
   });
-
-  console.log(description.choices[0].message);
 
   const tags = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
       {
         role: "user",
-        content: `come up with 10 keywords for a youtube video called ${title}`,
+        content: `sebutkan tags dari  ${title}`,
       },
     ],
     max_tokens: 100,
   });
 
-  console.log(tags.choices[0].message);
+  res.status(200).json({
+    description: description.choices[0].message,
+    tags: tags.choices[0].message,
+  });
 };
 
-const generateImage = async (desc) => {
+const generateImage = async (req, res) => {
   const image = await openai.images.generate({
     model: "dall-e-3",
-    prompt: desc,
+    prompt: req.body.prompt,
   });
 
-  console.log(image.data);
+  res.status(200).json({
+    image: image.data,
+  });
 };
 
 module.exports = {

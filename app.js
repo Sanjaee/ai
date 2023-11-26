@@ -1,24 +1,22 @@
-const readline = require("readline");
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const {
   generateMeta,
   generateImage,
 } = require("./controllers/openaiControllers");
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
+const app = express();
+
+app.use(cors()); // Tambahkan ini untuk mengaktifkan CORS
+app.use(bodyParser.json());
+app.use(express.static("public"));
+
+app.post("/openai/meta", generateMeta);
+app.post("/openai/image", generateImage);
+
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+  console.log(`Server berjalan di port ${PORT}`);
 });
-
-// Prompt user for YouTube video title
-// rl.question("jawaban: \n", generateMeta);
-rl.question("jawaban: \n", generateImage);
-
-//with close
-
-// rl.question("jawaban: ", (desc) => {
-//   // Generate meta description using OpenAI
-//   generateImage(desc);
-
-//   // Close the readline interface
-//   rl.close();
-// });
