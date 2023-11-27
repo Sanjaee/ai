@@ -58,11 +58,12 @@ const generateImage = async (req, res) => {
 app.post("/openai/meta", generateMeta);
 app.post("/openai/image", generateImage);
 
-// Menggunakan req.headers.host untuk mendapatkan nama domain
+// Menggunakan req.headers.host untuk mendapatkan nama domain dan path
 const getDynamicURL = (req) => {
   const protocol = req.headers["x-forwarded-proto"] || req.protocol;
   const host = req.headers.host;
-  return `${protocol}://${host}`;
+  const path = req.originalUrl;
+  return `${protocol}://${host}${path}`;
 };
 
 app.get("/getDynamicURL", (req, res) => {
