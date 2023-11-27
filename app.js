@@ -16,32 +16,21 @@ const openai = new OpenAI({
 });
 
 const generateMeta = async (req, res) => {
-  const { title } = req.body;
+  try {
+    const { title } = req.body;
 
-  const description = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    messages: [
-      {
-        role: "user",
-        content: `isi ${title}`,
-      },
-    ],
-  });
+    const description = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: `isi ${title}` }],
+    });
 
-  const tags = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    messages: [
-      {
-        role: "user",
-        content: `sebutkan tags dari  ${title}`,
-      },
-    ],
-  });
-
-  res.status(200).json({
-    description: description.choices[0].message,
-    tags: tags.choices[0].message,
-  });
+    res.status(200).json({
+      description: description.choices[0].message,
+    });
+  } catch (error) {
+    console.error("Error processing chat:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 const generateImage = async (req, res) => {
