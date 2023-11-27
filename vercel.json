@@ -2,7 +2,7 @@
   "version": 2,
   "functions": {
     "api/**/*.js": {
-      "maxDuration": 20
+      "maxDuration": 9
     }
   },
   "routes": [{ "src": "/openai/(.*)", "dest": "/app.js" }]
