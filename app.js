@@ -21,7 +21,9 @@ const generateMeta = async (req, res) => {
 
     const description = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: `isi ${title}` }],
+      messages: [
+        { role: "user", content: `jawab dengan singkat dan jelas ${title}` },
+      ],
     });
 
     res.status(200).json({
