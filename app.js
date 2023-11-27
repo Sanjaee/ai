@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const OpenAI = require("openai");
+require("dotenv").config(); // Membaca variabel lingkungan dari file .env
 
 const app = express();
 
@@ -12,7 +13,6 @@ app.use(express.static("public"));
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-  // "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",
 });
 
 const generateMeta = async (req, res) => {
