@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const OpenAI = require("openai");
-require("dotenv").config(); // Membaca variabel lingkungan dari file .env
+require("dotenv").config();
 
 const app = express();
 
@@ -58,7 +58,19 @@ const generateImage = async (req, res) => {
 app.post("/openai/meta", generateMeta);
 app.post("/openai/image", generateImage);
 
-const PORT = process.env.PORT;
+// Menggunakan req.headers.host untuk mendapatkan nama domain
+const getDynamicURL = (req) => {
+  const protocol = req.headers["x-forwarded-proto"] || req.protocol;
+  const host = req.headers.host;
+  return `${protocol}://${host}`;
+};
+
+app.get("/getDynamicURL", (req, res) => {
+  const dynamicURL = getDynamicURL(req);
+  res.status(200).json({ dynamicURL });
+});
+
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
   console.log(`Server berjalan di port ${PORT}`);
