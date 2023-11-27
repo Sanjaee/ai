@@ -1,7 +1,0 @@
-{
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/openai/(.*)", "dest": "http://localhost:4000/openai/$1" },
-    { "src": "/(.*)", "dest": "/$1" }
-  ]
-}
