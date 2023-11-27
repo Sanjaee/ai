@@ -11,7 +11,8 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 const openai = new OpenAI({
-  apiKey: "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",
+  apiKey: process.env.OPENAI_API_KEY,
+  // "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",
 });
 
 const generateMeta = async (req, res) => {
@@ -57,7 +58,7 @@ const generateImage = async (req, res) => {
 app.post("/openai/meta", generateMeta);
 app.post("/openai/image", generateImage);
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(`Server berjalan di port ${PORT}`);
