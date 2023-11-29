@@ -3,15 +3,15 @@
   functions = "."
 
 [[redirects]]
-  from = "/openai/*"
+  from = "/api/*"
   to = "/app/:splat"
   status = 200
 
 [[headers]]
-  for = "/openai/*"
+  for = "/api/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Methods = "POST"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE"
     Access-Control-Allow-Headers = "Content-Type"
 
 [dev]
