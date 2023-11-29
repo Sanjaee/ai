@@ -1,9 +1,18 @@
 [build]
-  command = "npm run build"  
-  functions = "functions"  
+  command = "node app.js"
+  functions = "."
+
+[[redirects]]
+  from = "/openai/*"
+  to = "/app/:splat"
+  status = 200
+
+[[headers]]
+  for = "/openai/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "POST"
+    Access-Control-Allow-Headers = "Content-Type"
 
 [dev]
-  command = "npm run start"  
-  
-[context.production.environment]
-  NODE_ENV = "production"
+  functions = "."
